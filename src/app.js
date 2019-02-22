@@ -43,7 +43,6 @@ const GlobalStyle = createGlobalStyle`
 
   .gutter {
       background-color: #ddd;
-
       background-repeat: no-repeat;
       background-position: 50%;
   }
@@ -56,17 +55,13 @@ const GlobalStyle = createGlobalStyle`
   .gutter.gutter-vertical {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
     cursor: row-resize;
+    height: 4px;
   }
 
   .gutter.gutter-horizontal {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
     cursor: col-resize;
-    height: 100%;
-    float: left;
-  }
-
-  .split, .gutter.gutter-horizontal {
-      height: 300px;
+    width: 4px;
   }
 `;
 
@@ -82,8 +77,8 @@ const List = ({ color }) => {
     <ol
       style={{
         background: color,
-        width: 600,
-        height: 300,
+        width: "100%",
+        height: "100%",
         overflow: "auto",
         margin: 0,
         padding: 0
@@ -99,15 +94,15 @@ const List = ({ color }) => {
 function elementStyle(dimension, size, gutterSize) {
   return {
     "flex-basis": "calc(" + size + "% - " + gutterSize + "px)",
-    float: "right",
+    // float: "right",
     width: size
   };
 }
 
 function gutterStyle(dimension, gutterSize) {
   return {
-    float: "right",
-    width: "10px"
+    // float: "right",
+    // width: "6px"/
   };
 }
 
@@ -126,14 +121,24 @@ export default class App extends PureComponent {
           <div style={{ width: '100%', height: '100%', background: 'green' }} />
         </Split> */}
         <Split
-          style={{ width: "100%", height: 300, display: "flex" }}
+          style={{ width: "100%", height: "100%", display: "flex" }}
           sizes={[25, 75]}
           minSize={[100, 100]}
           direction="horizontal"
           elementStyle={elementStyle}
-          gutterStyle={gutterStyle}
+          // gutterStyle={gutterStyle}
+          gutterSize={6}
         >
-          <List color="orange" />
+          <Split
+            style={{ height: "100%", width: "300px", overflow: "auto" }}
+            sizes={[50, 50]}
+            minSize={[100, 100]}
+            direction="vertical"
+            gutterSize={6}
+          >
+            <List color="orange" />
+            <List color="cyan" />
+          </Split>
           <List color="yellow" />
         </Split>
       </>
@@ -147,3 +152,27 @@ export default class App extends PureComponent {
 <List />
 </Split> */
 }
+
+/*
+SplitWrapper.propTypes = {
+  sizes: PropTypes.arrayOf(PropTypes.number),
+  minSize: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.arrayOf(PropTypes.number) ]),
+  expandToMin: PropTypes.bool,
+  gutterSize: PropTypes.number,
+  gutterAlign: PropTypes.string,
+  snapOffset: PropTypes.number,
+  dragInterval: PropTypes.number,
+  direction: PropTypes.string,
+  cursor: PropTypes.string,
+  gutter: PropTypes.func,
+  elementStyle: PropTypes.func,
+  gutterStyle: PropTypes.func,
+  onDrag: PropTypes.func,
+  onDragStart: PropTypes.func,
+  onDragEnd: PropTypes.func,
+  collapsed: PropTypes.bool,
+  children: PropTypes.arrayOf(PropTypes.element),
+};
+*/
