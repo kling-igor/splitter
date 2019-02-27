@@ -53,13 +53,15 @@ const GlobalStyle = createGlobalStyle`
 
 
   .gutter.gutter-vertical {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAEAQMAAACEHZz0AAAABlBMVEUAAADMzMzIT8AyAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfjAhsTCQ6JxssVAAAAEUlEQVQI12NgYGA4cwaEGBgAEywDMZ7GenYAAAAASUVORK5CYII=
+');
     cursor: row-resize;
     height: 4px;
   }
 
   .gutter.gutter-horizontal {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAOAQMAAAAypC9bAAAABlBMVEUAAADMzMzIT8AyAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfjAhsTCTE/oOYoAAAAEElEQVQI12NIYEhgAAEsNAAqHAMBffS2jgAAAABJRU5ErkJggg==
+');
     cursor: col-resize;
     width: 4px;
   }
