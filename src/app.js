@@ -108,6 +108,22 @@ function gutterStyle(dimension, gutterSize) {
   };
 }
 
+
+const Dock = () => {
+  return (
+    <Split
+      style={{ height: "100%", width: "300px", overflow: "auto" }}
+      sizes={[50, 50]}
+      minSize={[100, 100]}
+      direction="vertical"
+      gutterSize={6}
+    >
+      <List color="orange" />
+      <List color="cyan" />
+    </Split>
+  )
+}
+
 export default class App extends PureComponent {
   render() {
     return (
@@ -125,22 +141,14 @@ export default class App extends PureComponent {
         <Split
           style={{ width: "100%", height: "100%", display: "flex" }}
           sizes={[25, 75]}
-          minSize={[100, 100]}
+          minSize={[0, 100]}
+          snapOffset={150}
           direction="horizontal"
           elementStyle={elementStyle}
           // gutterStyle={gutterStyle}
           gutterSize={6}
         >
-          <Split
-            style={{ height: "100%", width: "300px", overflow: "auto" }}
-            sizes={[50, 50]}
-            minSize={[100, 100]}
-            direction="vertical"
-            gutterSize={6}
-          >
-            <List color="orange" />
-            <List color="cyan" />
-          </Split>
+          <Dock />
           <List color="yellow" />
         </Split>
       </>
