@@ -4,6 +4,9 @@ import styled, { createGlobalStyle } from "styled-components";
 
 import Split from "react-split";
 
+import { ChevronRight } from "styled-icons/fa-solid/ChevronRight";
+import { ChevronLeft } from "styled-icons/fa-solid/ChevronLeft";
+
 const GlobalStyle = createGlobalStyle`
   html {
     
@@ -47,9 +50,9 @@ const GlobalStyle = createGlobalStyle`
       background-position: 50%;
   }
 
-  .gutter:hover,.gutter:active {
+  /* .gutter:hover,.gutter:active {
     background-color: #fff;
-  }
+  } */
 
 
   .gutter.gutter-vertical {
@@ -65,6 +68,66 @@ const GlobalStyle = createGlobalStyle`
     cursor: col-resize;
     width: 4px;
   }
+`;
+
+// http://www.tipue.com/blog/center-a-div/
+// https://medium.freecodecamp.org/how-to-center-things-with-style-in-css-dc87b7542689
+
+const HandleHoverArea = styled.div`
+  width: 12px;
+  height: 100%;
+  background-color: transparent;
+
+  position: absolute;
+  z-index: 9000;
+  right: ${props => (props.collapsed ? "-17px" : "0px")};
+  top: 50%;
+  transform: translate(0%, -50%);
+
+  opacity: 0;
+  filter: alpha(opacity=0);
+  transition-duration: 0.25s;
+
+  &:hover {
+    opacity: 1;
+    filter: alpha(opacity=1);
+  }
+`;
+
+const Handle = styled.div`
+  position: absolute;
+  border: 1px solid #bababa;
+  border-left-color: ${props => (props.collapsed ? "#ddd" : "#bababa")};
+  border-right-color: ${props => (props.collapsed ? "#bababa" : "#ddd")};
+  /* margin: 0px; */
+  border-bottom-right-radius: ${props => (props.collapsed ? "4px" : "0px")};
+  border-top-right-radius: ${props => (props.collapsed ? "4px" : "0px")};
+  border-bottom-left-radius: ${props => (props.collapsed ? "0px" : "4px")};
+  border-top-left-radius: ${props => (props.collapsed ? "0px" : "4px")};
+  width: 10px;
+  color: #7d7d7d;
+  background: #ddd;
+  font-size: 12px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  display: inline-block;
+  /* position: absolute; */
+  z-index: 9999;
+  /* right: -19px; */
+  /* left: 0; */
+  top: 50%;
+  transform: translate(0%, -50%);
+  /* opacity: 0;
+  filter: alpha(opacity=0);
+  transition-duration: 0.25s;
+
+  &:hover {
+    opacity: 1;
+    filter: alpha(opacity=1);
+  } */
 `;
 
 const List = ({ color }) => {
@@ -108,11 +171,21 @@ function gutterStyle(dimension, gutterSize) {
   };
 }
 
+function gutter(index, gutterDirection) {
+  const gutterElement = document.createElement("div");
+  gutterElement.className = "gutter gutter-" + gutterDirection;
+  return gutterElement;
+}
 
 const Dock = () => {
   return (
     <Split
-      style={{ height: "100%", width: "300px", overflow: "auto" }}
+      style={{
+        height: "100%",
+        width: "100%",
+        overflow: "auto",
+        position: "relative"
+      }}
       sizes={[50, 50]}
       minSize={[100, 100]}
       direction="vertical"
@@ -121,10 +194,31 @@ const Dock = () => {
       <List color="orange" />
       <List color="cyan" />
     </Split>
-  )
-}
+  );
+};
 
 export default class App extends PureComponent {
+  state = { collapsed: false };
+
+  constructor(props) {
+    super(props);
+    this.splitter = React.createRef();
+  }
+
+  onHandleClick = () => {
+    const { collapsed } = this.state;
+
+    const split = this.splitter.current.split;
+
+    if (collapsed) {
+      split.setSizes([25, 75]);
+    } else {
+      split.collapse(0);
+    }
+
+    this.setState((state, props) => ({ collapsed: !state.collapsed }));
+  };
+
   render() {
     return (
       <>
@@ -139,6 +233,7 @@ export default class App extends PureComponent {
           <div style={{ width: '100%', height: '100%', background: 'green' }} />
         </Split> */}
         <Split
+          ref={this.splitter}
           style={{ width: "100%", height: "100%", display: "flex" }}
           sizes={[25, 75]}
           minSize={[0, 100]}
@@ -147,8 +242,24 @@ export default class App extends PureComponent {
           elementStyle={elementStyle}
           // gutterStyle={gutterStyle}
           gutterSize={6}
+          // gutter={gutter}
         >
-          <Dock />
+          <div style={{ position: "relative", overflow: "none" }}>
+            <Dock />
+            <HandleHoverArea collapsed={this.state.collapsed}>
+              <Handle
+                onClick={this.onHandleClick}
+                collapsed={this.state.collapsed}
+              >
+                {this.state.collapsed ? (
+                  <ChevronRight size="12" />
+                ) : (
+                  <ChevronLeft size="12" />
+                )}
+              </Handle>
+            </HandleHoverArea>
+          </div>
+
           <List color="yellow" />
         </Split>
       </>
