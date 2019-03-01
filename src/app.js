@@ -12,6 +12,8 @@ const GlobalStyle = createGlobalStyle`
     
     height: 100%;
     margin: 0;
+
+    background: black;
   }
 
   body {
@@ -19,7 +21,6 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-family: Roboto, sans-serif;
     overflow: hidden;
-    background-color: white;
     height: 100%;
     margin: 0;
     overflow: hidden !important;
@@ -32,6 +33,8 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     left: 0;
     top: 0;
+
+    background-color: black;
 
     /* padding: 8px; */
   }
@@ -197,7 +200,65 @@ const Dock = () => {
   );
 };
 
+const KeyStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  width: 20px;
+  max-width: 25px;
+  border-color: #3c3c3c;
+  border-width: 0px;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  border-style: solid;
+  color: white;
+  background-color: gray;
+  font-size: 12px;
+  text-align: center;
+  margin-left: 1px;
+  margin-right: 0px;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+`;
+
 export default class App extends PureComponent {
+  render() {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "flex-start"
+        }}
+      >
+        <KeyStyle>I</KeyStyle>
+        <KeyStyle>D</KeyStyle>
+        <KeyStyle>K</KeyStyle>
+        <KeyStyle>F</KeyStyle>
+        <KeyStyle>A</KeyStyle>
+        <KeyStyle>W</KeyStyle>
+        <KeyStyle>⌘</KeyStyle>
+        <KeyStyle>⎇</KeyStyle>
+        <KeyStyle>⌥</KeyStyle>
+        <KeyStyle>❖</KeyStyle>
+        <KeyStyle>⏎</KeyStyle>
+        <KeyStyle>⌫</KeyStyle>
+        <KeyStyle>⌦</KeyStyle>
+        <KeyStyle>⇧</KeyStyle>
+        <KeyStyle>⇪</KeyStyle>
+        <KeyStyle>◇</KeyStyle>
+        <KeyStyle>⌃</KeyStyle>
+        <KeyStyle>⇦</KeyStyle>
+        <KeyStyle>⇨</KeyStyle>
+        <KeyStyle>⤒</KeyStyle>
+        <KeyStyle>⤓</KeyStyle>
+      </div>
+    );
+  }
+}
+
+export class __App extends PureComponent {
   state = { collapsed: false };
 
   constructor(props) {
